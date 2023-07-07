@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/editing.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/modals.css">
+
+    <script src="https://kit.fontawesome.com/dc4f8560f3.js" crossorigin="anonymous"></script>
+</head>
+<style>
+    .zone:hover {
+        cursor:pointer;
+    }
+    .main {
+        background-color: #F1F5F6;
+    }
+
+    .boxSelected {
+        color: darkgreen;
+        background: rgb(114, 236, 114);
+    }
+
+    .boxIco {
+        margin: 0 1rem 0 0;
+        width: 50px;
+        height: 50px;
+        border: 1px solid black;
+        text-align: center;
+    }
+    .fa-check:before {
+        content: "\f00c";
+    }
+    body {
+        font-family: 'Open Sans', sans-serif !important;
+    }
+    #map-popup {
+        padding: 0;
+        max-width: 880px;
+        min-height: 390px;
+        display: flex;
+        flex-direction: column;
+    }
+    #map-popup .row {
+        margin: 0 !important;
+        height: 100%;
+        flex: 1 1 auto;
+    }
+    #map-popup .col-6_img {
+        padding-right: 0;
+        width: auto;
+
+        position: absolute;
+        bottom: 0;
+        right: 0;
+    }
+    #map-popup .col-6_img img {
+        height: 100%;
+    }
+    .col-6_article {
+        padding: 32px 40px;
+        padding-right: 0;
+        z-index: 10;
+        max-width: none;
+        min-width: 570px;
+    }
+    .button {
+        z-index: 11;
+    }
+
+    .workflow {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+        height: 100%;
+    }
+
+    .workflow__map {
+        border-radius: 16px;
+        border: 2px solid #C8CDD0;
+        height: auto;
+        flex: 1 1 auto;
+        box-shadow: none !important;
+    }
+    .container.my-2 {
+        display: flex;
+        flex-direction: column;
+
+        max-width: 342px;
+        margin: 16px 0 !important;
+    }
+    .workflow__part {
+        border-radius: 12px !important;
+        background-color: #fff;
+        margin: 0 !important;
+        box-shadow: 0px 8px 22px 0px rgba(13, 14, 14, 0.06);
+    }
+    .px-4 {
+        padding: 0 !important;
+        display: flex;
+        flex-direction: column;
+
+    }
+    .px-4 .workflow__part {
+        padding: 20px 24px !important;
+    }
+    .zoneSelected {
+        pointer-events: none;
+    }
+    .boxIco  {
+        transition: background-color ease-in-out .2s;
+    }
+    .ml-auto {
+        font-size: 16px;
+        font-family: Inter;
+        font-weight: 600;
+        line-height: 19px;
+        color: #1D1F20;
+        margin-bottom: 16px;
+    }
+    .label {
+        display: inline-block;
+        font-size: 12px;
+        font-family: Inter;
+        line-height: 15px;
+        color: #383A3C;
+        margin: 4px 0 0 0 !important;
+    }
+    .labels {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .range {
+        display: flex;
+    }
+    .range div {
+        flex: 1 1 auto;
+    }
+    .range p {
+        font-size: 12px;
+        font-family: Inter;
+        line-height: 15px;
+        color: #1D1F20;
+        display: inline-block;
+        margin-top: 4px;
+    }
+    .checkbox-green {
+        margin: 5px;
+        display: flex;
+        flex-shrink: 0;
+        width: 40px;
+        height: 36px;
+        border-radius: 6px;
+        background-color: transparent;
+        border: 1px solid #4A8830;
+
+        transition: background-color ease-in-out .2s, border ease-in-out .2s;
+
+        position: relative;
+    }
+
+    .checkbox-green::after {
+        content: '' !important;
+        position: relative;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 20px;
+        height: 13.3px;
+        background: url('./img/icons/success.svg') no-repeat 100%;
+        background-size: 22px;
+        background-position: center;
+        transition: opacity ease-in-out .2s;
+        opacity: 0;
+    }
+    .checkbox-green.checked {
+        background-color: #DBF2D2;
+        border: 1px solid #DBF2D2;
+    }
+    .checkbox-green.checked::after {
+        opacity: 1;
+    }
+    .workflow {
+        transform: translateY(-100px);
+        opacity: 0;
+        transition: opacity ease .8s, transform ease .8s;
+    }
+    .workflow.visible {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+</style>
+
+<body>
+    <div class="wrapper">
+        <main class="main">
+            <div class="main__container">
+                <div class="d-flex justify-content-center workflow">
+                    <div class="workflow__part  workflow__map" style=" height: 680px;
+                    overflow: hidden; 
+                    position:relative;" class="rounded-all">
+                        <img src="./img/map.png" style="position: absolute; width: 980px;
+                        height: 100%; display:block;">
+                        <img src="./img/mapPeople.png" class="mapPeople" style="position: absolute; width: 980px;
+                        height: 100%; display:block;">
+                        <img src="./img/mapTracks.png" class="mapTracks" style="position: absolute; width: 980px;
+                        height: 100%; display:none;">
+                        <img src="./img/mapTracks2.png" class="mapWideTracks" style="position: absolute; width: 980px;
+                        height: 100%; display:none;">
+                        <img src="./img/mapAreas.png" class="mapAreas" style="position: absolute; width: 980px;
+                        height: 100%; display:none;">
+                        <div style="position: absolute; width: 27.15%; top:57.5%; left:0.5%; clip-path: path('M3.51347 46.2371L2.21204 46.9619L3.37564 47.8919L160.876 173.781L161.149 174H161.5H201.25H201.792L202.088 173.546L241.838 112.584L242.374 111.761L241.561 111.21L80.5608 2.17202L80.0267 1.81034L79.477 2.14768L47.995 21.466L3.51347 46.2371Z');">
+                            <img src="./img/map/zone1.png" class="zone zone1 wrongZone" style="display: block; transform: translate(3px, 1px);">
+                        </div>
+                        <div style=" position: absolute; top:26%; left:23%; width: 35.94%; height: 35.14%; clip-path: path('M-4.24055 88.5484L-5.01999 89.31404L-4.33158 90.16184L65.66968 175.7588L65.89 176.03L66.2218 176.1416L323.0488 261.7388L323.9296 262.0328L324.4348 261.2532L364.1068 199.9832L364.768 198.9632L363.7396 198.3152C331.3688 178.1912 258.5356 130.9976 219.4324 102.9548C180.342 74.91888 119.4076 26.79712 93.4598 -3.6923316L92.82148 -4.815087L92.01688 -3.9564236L-4.24055 88.5484Z');">
+                            <img src="./img/map/zone2.svg"  class="zone zone2" style="display: block; transform: translate(16px, 8px);">                          
+                        </div>
+                        <div  style="position: absolute; top:18.3%; left:63%; clip-path: path('M45.46146 2.32047L44.22262 1.8852L43.56028 2.66837L2.39942 61.06838L1.71841 61.91135L2.73781 62.64545L104.48779 124.146L105.15714 124.5541L105.65588 124.0456L166.8051 73.08532L167.9744 72.10863L166.68028 71.30574L101.89025 31.15948L101.85417 31.13462L101.81639 31.11304L45.46146 2.32047Z');">
+                            <img src="./img/map/zone3.png" class="zone zone3" style="display: block; transform: translate(10px, 5px);">
+                        </div>
+                        <div style="position: absolute; top:0.1%; left:77%; clip-path: path('M38.71516 2.25796L37.76069 1.93524L37.35556 2.85769L2.29258 82.69734L1.85852 83.68568L2.83854 84.13823L30.77943 96.04167L30.95066 96.13011L31.13646 96.14089L78.83623 98.59291L79.13644 98.61403L79.40095 98.387L132.16438 68.49205L132.36441 68.29866L132.4779 67.99287L145.1054 39.49792L145.5927 38.39671L144.452 38.02406L38.71516 2.25796Z');">
+                            <img src="./img/map/zone4.png" class="zone zone4" style="display: block; transform: translate(10px, 5px);">
+                        </div>
+                    </div>
+                    <div class="px-4">
+                        <div class="container rounded-all workflow__part" style="background-color: white; width: 342px; padding: 0.5rem 1.5rem">
+                            <p class="part-name">Часть 1</p>
+                            <h3 class="title">Выбор территории</h3>
+                            <div class="firstQuestion" style="display:block;">
+                                <p>Выберите 3 места, рядом с которыми живёт много жителей</p>
+                                <div class="d-flex">
+                                    <div class="boxIco box2 checkbox-green"></div>
+                                    <div class="boxIco box3 checkbox-green"></div>
+                                    <div class="boxIco box4 checkbox-green"></div>
+                                </div>
+                            </div>
+                            <div class="secondQuestion" style="display:none;">
+                                <p>Выберите 2 места с наибольшим числом остановок дорожного транспорта поблизости</p>
+                                <div class="d-flex">
+                                    <div class="boxIco box2 checkbox-green"></div>
+                                    <div class="boxIco box3 checkbox-green"></div>
+                                </div>
+                            </div>
+                            <div class="thirdQuestion" style="display:none;">
+                                <p>Выберите место, до которого проще всего добраться пешком; чем больше радиус пешей доступности,
+                                    тем лучше</p>
+                                <div class="d-flex">
+                                    <div class="boxIco box2 checkbox-green"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container rounded-all firstQuestion my-2 workflow__part"
+                            style="background-color: white; display:block;">
+                            <h3 class="ml-auto" style="font-size: 16px;">Плотность населения Профиграда</h3>
+                            <div class="my-2"
+                                style="width:100%; margin: 0 !important; height:25px; background: linear-gradient(90deg, #9B0AE4 0%, #F2DEFF 100%);"></div>
+                            <div class="d-flex labels">
+                                <p class="label" style="font-size: 12px;">Высокая</p>
+                                <p class="label" style="font-size: 12px;">Низкая</p>
+                            </div>
+                        </div>
+                        <div class="container rounded-all secondQuestion my-2 workflow__part"
+                            style="background-color: white; display:none;">
+                            <h3 class="ml-auto"  style="font-size: 16px;">Маршруты общественного транспорта</h3>
+                            <div class="d-flex">
+                                <div>
+                                    <img src="./img/route.png" alt="">
+                                    <p class="label">Остановка</p>
+                                </div>
+                                <div>
+                                    <img src="./img/route.png" alt="">
+                                    <p class="label">Остановка</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container rounded-all thirdQuestion my-2 workflow__part"
+                            style="background-color: white; display:none;">
+                            <h3 class="ml-auto" style="font-size: 16px; margin-left: 0 !important;">Доступность улиц для пешеходов</h3>
+                            <div class="d-flex range">
+                                <div>
+                                    <div style="width:100%; height:25px; background:#9C0BE5;"></div>
+                                    <p>5 мин.</p>
+                                </div>
+                                <div>
+                                    <div style="width:100%; height:25px; background:#C45FF8"></div>
+                                    <p>10 мин.</p>
+                                </div>
+                                <div>
+                                    <div style="width:100%; height:25px; background:#DAB2ED"></div>
+                                    <p>15 мин.</p>
+                                </div>
+                                <div>
+                                    <div style="width:100%; height:25px; background:#F3EAF7"></div>
+                                    <p>20 мин.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="button nextQuestion button_disabled" style="display:block; margin-right: auto; z-index: auto;">Продолжить</button>
+                    </div>
+                </div>
+
+
+                <div class="container rounded-all modalWindow modalStart" id="map-popup">
+                    <div class="mx-4 row">
+                        <div class="col-6 col-6_article">
+                            <h1>Давайте определим, <br> какое место в городе лучше всего подходит для парка!</h1>
+                            <p>Оцените плотность населения, транспортную и пешеходную доступность, чтобы выбрать лучшую территорию
+                            </p>
+                        </div>
+                        <div class="col-6 col-6_img">
+                            <img src="./img/mapModal.png" alt="" class="mr-auto img-fluid">
+                        </div>
+                    </div>
+
+                    <button class="button startButt" style="position:absolute; left:5%; bottom:10%;">Приступим!</button>
+                </div>
+
+                <div class="overlay"></div>
+            </div>
+        </main>
+
+        <div class="popup">
+            <div class="popup__icon"><img src="./img/icons/attention.svg" alt=""></div>
+            <div class="popup__info">
+                <div class="popup__header">
+                    <h3 class="popup__title">Ой, это неверный вариант!</h3>
+                    <button class="popup__close-btn">
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M5.26541 7L0 1.73459L1.73459 0L7 5.26541L12.2654 0L14 1.73459L8.73459 7L14 12.2654L12.2654 14L7 8.73459L1.73459 14L0 12.2654L5.26541 7Z" fill="#75797B"/>
+                        </svg>                            
+                    </button>
+                </div>
+                <p class="popup__paragraph">
+                    Если не знаете, какой вариант выбрать, загляните в справочник.
+                </p>
+            </div>
+        </div>
+
+        <div class="popup-finished">
+            <div class="popup-finished__info">
+                <div class="popup-finished__header">
+                    <h3 class="popup-finished__title">Отлично!</h3>
+                </div>
+                <p class="popup-finished__paragraph">
+                    На основе аналитических данных вы определили лучшую <br> территорию для будущего парка.
+                </p>
+            </div>
+            <a href="opros.html" class="popup-finished__button">Продолжить</a>
+        </div>
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"
+    integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+    crossorigin="anonymous"></script>
+<script>
+    function clearZonesAndBoxes() {
+        let nonSelectable = "";
+        if (count == 3) {
+            nonSelectable = "zone4";
+        }
+        else if (count == 2) {
+            nonSelectable = "zone3";
+        }
+        $('.zoneSelected').each(function () {
+            if ($(this).hasClass(nonSelectable)) {
+                $(this).addClass("wrongZone");
+            }
+            $(this).removeClass("zoneSelected");
+        });
+        $('.boxSelected').each(function () {
+            $(this).text("");
+            $(this).removeClass("checked");
+        });
+    }
+    function checkCount() {
+        if ((count == 3) && $(".firstQuestion").is(":visible")) {
+            $(".nextQuestion").removeClass("button_disabled");
+        } else  {
+            $(".nextQuestion").addClass("button_disabled");
+        }
+        if ((count == 2) && $(".secondQuestion").is(":visible")) {
+            $(".nextQuestion").removeClass("button_disabled");
+        }
+        if ((count == 1) && $(".thirdQuestion").is(":visible")) {
+            $(".nextQuestion").removeClass("button_disabled");
+        }
+    }
+
+    function wrongAnswer(){
+        $(".popup").addClass('_opened');
+        var popup = $('.popup');
+        window.setTimeout(function() {
+            popup.addClass('clickable');
+        }, 5);
+    }
+
+    $(".popup__close-btn").on("click", function () {
+        var popup = $('.popup');
+        $(".popup").removeClass('_opened');
+        window.setTimeout(function() {
+            popup.removeClass('clickable');
+        }, 5);
+    });
+    $(document).on('click', function(e) {
+        var popup = $('.popup');
+        if (!$(e.target).closest('.popup').length && popup.hasClass('_opened') && popup.hasClass('clickable')) {
+            popup.removeClass('_opened');
+            window.setTimeout(function() {
+                popup.removeClass('clickable');
+            }, 5);
+        }
+    });
+    $(document).on('keydown', function(event) {
+        var popup = $('.popup');
+        var popupFinished = $('.popupFinished');
+        
+        if (popup.hasClass('_opened') || popupFinished.hasClass('_opened')) {
+            if (event.key == 'Escape') {
+                popup.removeClass('_opened');
+                window.setTimeout(function() {
+                    popup.removeClass('clickable');
+                }, 5);
+            }
+        }
+    });
+
+
+    $(".startButt").on("click", function () {
+        $(".modalStart").fadeOut(500);
+        $(".overlay").fadeOut(500);
+
+        $(".workflow").addClass('visible');
+    });
+
+    let count = 0;
+    $(".zone1").on("click", function () {
+        wrongAnswer();
+    });
+    $(".zone2").on("click", function () {
+        if ($(".zone2").hasClass("zone")&&(!$(".zone2").hasClass("zoneSelected"))) {
+            $(".zone2").addClass("zoneSelected");
+            $(".box2").addClass("boxSelected");
+            $(".zone2").attr('src','./img/map/zone2active.png');
+            $(".box2").addClass('checked');
+            count++;
+            checkCount();
+        }
+    });
+    $(".zone3").on("click", function () {
+        if (!$(".zone3").hasClass("wrongZone")&&(!$(".zone3").hasClass("zoneSelected"))) {
+            $(".zone3").addClass("zoneSelected");
+            $(".box3").addClass("boxSelected");
+            $(".zone3").attr('src','./img/map/zone3active.png');
+            $(".box3").addClass('checked');
+            count++;
+            checkCount();
+        } else {
+            wrongAnswer();
+        }
+    });
+    $(".zone4").on("click", function () {
+        if (!$(".zone4").hasClass("wrongZone")&&(!$(".zone4").hasClass("zoneSelected"))) {
+            $(".zone4").addClass("zoneSelected");
+            $(".zone4").attr('src','./img/map/zone4active.png');
+            $(".box4").addClass("boxSelected");
+            $(".box4").addClass('checked');
+            count++;
+            checkCount();
+        } else {
+            wrongAnswer();
+        }
+    });
+
+    $(".nextQuestion").on("click", function () {
+        if ((count == 3) && $(".firstQuestion").is(":visible")) {
+            $(".zone1").fadeOut(500);
+            $(".firstQuestion").fadeOut(500);
+            $(".mapPeople").fadeOut(500);
+            $(".secondQuestion").fadeIn(500);
+            $(".mapTracks").fadeIn(500);
+            $(".zone2").attr('src','./img/map/zone2.png');
+            $(".zone3").attr('src','./img/map/zone3.png');
+            $(".zone4").attr('src','./img/map/zone4.png');
+            clearZonesAndBoxes();
+            count = 0;
+            checkCount();
+        } else if ((count == 2) && $(".secondQuestion").is(":visible")) {
+            $(".zone4").fadeOut(500);
+            $(".secondQuestion").fadeOut(500);
+            $(".mapTracks").fadeOut(500);
+            $(".thirdQuestion").fadeIn(500);
+            $(".mapWideTracks").fadeIn(500);
+            $(".mapAreas").fadeIn(500);
+            $(".zone2").attr('src','./img/map/zone2.png');
+            $(".zone3").attr('src','./img/map/zone3.png');
+            clearZonesAndBoxes();
+            count = 0;
+            checkCount();
+        } else if ((count == 1) && $(".thirdQuestion").is(":visible")) {
+            $(".nextQuestion").fadeOut(500);
+            $(".popup-finished").addClass('_opened');
+            checkCount();
+        }
+    })
+</script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init();
+</script>
+
+</html>

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/editing.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/modals.css">
+    <script src="https://kit.fontawesome.com/dc4f8560f3.js" crossorigin="anonymous"></script>
+</head>
+<style>
+    .btn-outline-success:hover{
+        background-color: #F1FEF3;
+    }
+    .btn-outline-success:active{
+        background-color: #F1FEF3 !important;
+    }
+
+    .btn-outline-success:hover i{
+        color:green;
+    }
+
+    .btn-outline-danger:hover i{
+        color:red;
+    }
+
+    .btn-outline-danger:hover{
+        background-color: #FCEDF1;
+    }
+    .btn-outline-danger:active{
+        background-color: #FCEDF1 !important;
+    }
+
+    .content-part {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+    .oprosFinish {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex: 1 1 auto;
+    }
+    .oprosFinish.hidden {
+        display: none;
+    }
+    .workflow__part {
+        padding: 16px 24px 20px 24px;
+    }
+    .oprosNum {
+        font-size: 12px;
+        font-family: Inter;
+        font-style: italic;
+        line-height: 15px;
+        color: #1D1F20;
+    }
+
+    .finish-article {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: auto 0;
+    }
+    .finish-article p {
+        margin: 0 !important;
+    }
+</style>
+<body>
+    <div class="wrapper">
+        <main class="main">
+            <div class="main__container">
+                <div class="d-flex justify-content-around" style="display: flex; align-items: flex-start; gap: 16px;">
+                    <div style="flex: 0 0 50%;" class="content-part">
+                        <div class="container rounded-all py-4 workflow__part" style="background:white;" data-aos="fade-up" data-aos-duration="800">
+                            <p class="part-name">Часть 2</p>
+                            <h1 class="title">Семинар с жителями</h1>
+                        </div>
+                        <div class="container rounded-all py-4 workflow__part" style="background:white; min-height: 425px; display: flex; flex-direction: column; flex: 1 1 auto;" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+                            <p>Один из важнейших этапов перед проектированием — узнать, что хотят увидеть в будущем парке горожане и
+                                что они думают о выбранном месте.</p>
+                            <p>Определите, какие вопросы подходят для анкетирования:</p>
+                            <div class="oprosGo" style="display:block;">
+                                <div class="opros" style="width:100%; height:200px; overflow:hidden; position:relative;">
+                                    <img src="./img/questionBg.png" id="questionBg" style="position: absolute; width: 980px; height: 682px; display:block;">
+                                    <p class="oprosNum quest-content" style="position:absolute; top:20%; left:5%;"></p>
+                                    <h3 class="oprosQuestion title quest-content" style="position:absolute; top:40%; left:5%; width:75%;"></h3>
+                                </div>
+                                <div class="py-4 row justify-content-around">
+                                    <button class="btn btn-answear btn-outline-danger px-4 py-2"><i class="fa-solid fa-x"></i><b style="color:black;"> Не подходит</b></button>
+                                    <button class="btn btn-answear btn-outline-success px-4 py-2"><i class="fa-solid fa-check"></i><b style="color:black;"> Подходит</b></button>
+                                </div>
+                            </div>
+                            <div class="text-center oprosFinish hidden">
+                                <div class="finish-article">
+                                    <b>
+                                        <p>Анкета составлена.</p>
+                                    </b>
+                                    <b>
+                                        <p>Вы распределили все вопросы!</p>
+                                    </b>
+                                </div>
+                                <a href="oprosPop.html" class="button" style="color: #000;">Провести опрос населения</a> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="questionnaire" data-aos="fade-down" data-aos-duration="800" data-aos-delay="100">
+                        <h1 class="questionnaire__title" style="font-size: 20px;">АНКЕТА</h1>
+                        <h1 class="questionnaire__logo" style="padding-right:20px;">
+                            <img src="./img/biletStroy.png" alt="" class="img-fluid">
+                        </h1>
+
+                        <p class="questionnaire__paragraph">
+                            для жителей Профиграда с целью выяснения <br> пожеланий по проектированию городского парка
+                        </p>
+                        <div class="answears">
+                            <div class="answear answear_empty">
+                                <div class="answear__num">1.</div>
+                                <div class="answear__text"><div class="decor"></div></div>
+                            </div>
+
+                            <div class="answear answear_empty">
+                                <div class="answear__num">2.</div>
+                                <div class="answear__text"><div class="decor"></div></div>
+                            </div>
+
+                            <div class="answear answear_empty">
+                                <div class="answear__num">3.</div>
+                                <div class="answear__text"><div class="decor"></div> <div class="decor"></div></div>
+                            </div>
+                            
+                            <div class="answear answear_empty">
+                                <div class="answear__num">4.</div>
+                                <div class="answear__text"><div class="decor"></div> <div class="decor"></div></div>
+                            </div>
+
+                            <div class="answear answear_empty">
+                                <div class="answear__num">5.</div>
+                                <div class="answear__text"><div class="decor"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <div class="popup">
+            <div class="popup__icon"><img src="./img/icons/attention.svg" alt=""></div>
+            <div class="popup__info">
+                <div class="popup__header">
+                    <h3 class="popup__title">Ой, это неверный вариант!</h3>
+                    <button class="popup__close-btn">
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M5.26541 7L0 1.73459L1.73459 0L7 5.26541L12.2654 0L14 1.73459L8.73459 7L14 12.2654L12.2654 14L7 8.73459L1.73459 14L0 12.2654L5.26541 7Z" fill="#75797B"/>
+                        </svg>                            
+                    </button>
+                </div>
+                <p class="popup__paragraph">
+                    Если не знаете, какой вариант выбрать, загляните в справочник.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"
+    integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+    crossorigin="anonymous"></script>
+<script>
+    let counter = 0;
+    let wrongs = [1, 2, 5, 7];
+    let corrAnsw = 'btn-outline-success';
+    let answearEmptyElements;
+    let localCounter = 0;
+
+    let questions = [
+        "Что вы обычно делаете в парках?",
+        "Как зовут ваших домашних питомцев?",
+        "Хотите ли вы уехать из города?",
+        "Как сейчас используется выбранная территория?",
+        "Какие особо значимые места и ценные объекты есть на территории и рядом с ней?",
+        "Какого музыкального исполнителя вы бы пригласили на открытие парка?",
+        "Какие основные проблемы характерны для выбранной территории?",
+        "Какую вы предпочитаете кухню?",
+        "Чего не хватает на данной территории?"
+    ];
+
+    function setQuestion(n) {
+        if (n < questions.length) {
+            $('.oprosNum').text('Вопрос ' + (n + 1) + ' из 9');
+        }
+        $('.oprosQuestion').text(questions[n]);
+        switch(n){
+            case 7:
+                $('#questionBg').attr('src','./img/questionBg2.png');
+                $('.quest-content').addClass('quest-content_pos1');
+                break;
+            case 8:
+                $('#questionBg').attr('src','./img/questionBg3.png');
+                $('.quest-content').removeClass('quest-content_pos1');
+                $('.quest-content').addClass('quest-content_pos2');
+                break;
+        }
+    }
+
+    function wrongAnswer() {
+        $(".popup").addClass('_opened');
+        var popup = $('.popup');
+        window.setTimeout(function() {
+            popup.addClass('clickable');
+        }, 5);
+    };
+
+    $(".popup__close-btn").on("click", function () {
+        var popup = $('.popup');
+        $(".popup").removeClass('_opened');
+        window.setTimeout(function() {
+            popup.removeClass('clickable');
+        }, 5);
+    });
+    $(document).on('click', function(e) {
+        var popup = $('.popup');
+        if (!$(e.target).closest('.popup').length && popup.hasClass('_opened') && popup.hasClass('clickable')) {
+            popup.removeClass('_opened');
+            window.setTimeout(function() {
+                popup.removeClass('clickable');
+            }, 5);
+        }
+    });
+    $(document).on('keydown', function(event) {
+        var popup = $('.popup');
+        var popupFinished = $('.popupFinished');
+        
+        if (popup.hasClass('_opened') || popupFinished.hasClass('_opened')) {
+            if (event.key == 'Escape') {
+                popup.removeClass('_opened');
+                window.setTimeout(function() {
+                    popup.removeClass('clickable');
+                }, 5);
+            }
+        }
+    });
+
+    setQuestion(counter);
+
+    $(".btn-answear").on("click", function () {
+        if (counter < questions.length)
+            if ($(this).hasClass(corrAnsw)) {
+
+                if (!wrongs.includes(counter)) {
+                    let answearEmptyElements = $(".answear_empty");
+                    localCounter = localCounter + 1;
+
+                    let newContent = '<div class="answear__num">' + localCounter + '.</div>' + '<div class="answear__text">' + questions[counter] + '</div>';
+                    $(answearEmptyElements[0]).html(newContent);
+                    $(answearEmptyElements[0]).removeClass('answear_empty');
+                }
+                counter++;
+                if (counter == 9) {
+                    $(".oprosGo").fadeOut(100);
+                    $(".oprosFinish").removeClass('hidden');
+                };
+                setQuestion(counter);
+                if (wrongs.includes(counter)) {
+                    corrAnsw = 'btn-outline-danger';
+                } else {
+                    corrAnsw = 'btn-outline-success';
+                }
+            } else {
+                wrongAnswer();
+            }
+    });
+</script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init();
+</script>
+
+</html>

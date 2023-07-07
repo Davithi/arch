@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/editing.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/modals.css">
+    <script src="https://kit.fontawesome.com/dc4f8560f3.js" crossorigin="anonymous"></script>
+</head>
+<style>
+    .richContainer {
+        margin-right: 30%;
+        width: auto;
+        border: 1px solid #9C0BE5;
+        background: #FCF6FF;
+        padding: 1rem 1rem;
+        margin-top: 20px; 
+        display: none;
+    }
+
+    .richContainer b {
+        color: #C45FF8;
+    }
+
+    .archContainer {
+        margin-left: 30%;
+        border: 1px solid #775A1B;
+        background-color: #fff;
+        padding: 1rem 1rem;
+        margin-top: 20px; 
+        display: none;
+    }
+
+    .archContainer b {
+        color: #775A1B;
+    }
+    .archContainer li {
+        color: #775A1B;
+    }
+    ul {
+        background: rgba(253, 241, 206, 0.60);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    li {
+        display: inline-block;
+        padding-top:1rem;
+        padding-bottom:1rem;
+        font-family: Inter;
+        font-size: 16px;
+        font-family: Inter;
+        line-height: 22px;
+        position: relative;
+        width: 100%;
+    }
+    li::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: -18px;
+        transform: translateY(-50%);
+        border-radius: 50%;
+        height: 4px;
+        width: 4px;
+        background-color: #A9812A;
+    }
+    li:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: -40px;
+        height: 1px;
+        width: calc( 100% + 40px);
+        background-color: #F8D87E;
+    }
+    li:hover {
+        cursor:pointer;
+    }
+
+    .btn-outline-warning{
+        color: #775A1B;
+        border: 3px solid #775A1B;
+    }
+
+    .btn-outline-warning:hover{
+        color: #775A1B;
+        border: 3px solid #775A1B;
+    }
+    .col-3 {
+        display: flex;
+        align-items: flex-end;
+        position: absolute;
+        padding: 0 !important;
+    }
+    .col-6 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        padding: 0 -300px;
+        z-index: 10;
+    }
+    .col-stage {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin: auto 0;
+    }
+    .button-final {
+        font-size: 16px !important;
+        font-family: Inter !important;
+        font-weight: 600 !important;
+        color: #775A1B !important;
+        width: 100%;
+        padding: 16px 32px;
+        text-align: left;
+        border-radius: 8px !important;
+        border: 1px soldi #775A1B !important;
+    }
+</style>
+
+<body>
+    <div class="row justify-content-around" style="flex: 1 1 auto; height: 100%; max-width: 1700px; margin: 0 auto; position: relative;">
+        <div class="col-3" style="left: -4%; bottom: 0;"><img src="./img/richman.png" alt="" style="display: block; margin-left: auto; margin-top: auto !important; min-width: 425px;"></div>
+        <div class="col-6" style="position: absolute; min-width: 60%; height: 100%; top: 0; left: 50%; transform: translateX(-50%);">
+            <div class="stage0 col-stage">
+                <div class="archContainer rounded-all r0">
+                    <b>
+                        <p>Главный архитектор</p>
+                    </b>
+                    <p>Здравствуйте, Дмитрий Иванович!</p>
+                </div>
+                <div class="richContainer rounded-all r1">
+                    <b>
+                        <p>Заказчик</p>
+                    </b>
+                    <p>Добрый день! Ну что, укладываетесь в сроки?</p>
+                </div>
+                <div class="archContainer rounded-all r2">
+                    <b>
+                        <p>Главный архитектор</p>
+                    </b>
+                    <ul>
+                        <li class="correct" onclick="correctAnswer()">Да, в местах, где будут уклоны или насыпные возвышенности, мы сделаем удобные дорожки с
+                            плавными съездами. В общественных туалетах предусмотрены отдельные комнаты. А все
+                            навигационные таблички будем дублировать шрифтом Брайля.</li>
+                        <li class="wrong" onclick="wrongAnswer()">Мы, конечно, подумали, но решили ничего особенного в проект не добавлять.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="stage1 col-stage" style="display:none;">
+                <div class="richContainer rounded-all r3">
+                    <b>
+                        <p>Заказчик</p>
+                    </b>
+                    <p>Ну, что ж, неплохо. Вижу, и о людях с ограниченными возможностями подумали?</p>
+                </div>
+                <div class="archContainer rounded-all r4">
+                    <b>
+                        <p>Главный архитектор</p>
+                    </b>
+                    <ul>
+                        <li class="correct" onclick="correctAnswer()">Да, в местах, где будут уклоны или насыпные возвышенности, мы сделаем удобные дорожки с плавными съездами. В общественных туалетах предусмотрены отдельные комнаты. А все навигационные таблички будем дублировать шрифтом Брайля.</li>
+                        <li class="wrong" onclick="wrongAnswer()">Мы, конечно, подумали, но решили ничего особенного в проект не добавлять.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="stage2 col-stage" style="display:none;">
+                <div class="richContainer rounded-all r5">
+                    <b>
+                        <p>Заказчик</p>
+                    </b>
+                    <p>А мнение предпринимателей учли?</p>
+                </div>
+                <div class="archContainer rounded-all r6">
+                    <b>
+                        <p>Главный архитектор</p>
+                    </b>
+                    <ul>
+                        <li class="wrong" onclick="wrongAnswer()">Зачем? Коммерческие точки появятся сами собой!</li>
+                        <li onclick="correctAnswer()">Да, как и обсуждали в самом начале: в парке будут заведения с едой и напитками, ларьки с мороженым и водой, прокат спортивного инвентаря. А на центральной площадке можно будет проводить концерты и выставки.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="stage3 col-stage" style="display:none;">
+                <div class="richContainer rounded-all r7">
+                    <b>
+                        <p>Заказчик</p>
+                    </b>
+                    <p>Хорошо. А по объёму расходов мы укладываемся в лимит?</p>
+                </div>
+                <div class="archContainer rounded-all r8">
+                    <b>
+                        <p>Главный архитектор</p>
+                    </b>
+                    <ul>
+                        <li class="wrong" onclick="wrongAnswer()">Вам денег жалко что ли?</li>
+                        <li onclick="correctAnswer()">Да, сейчас уже понятен предварительный бюджет. Смета рассчитывается в несколько этапов: после проектной стадии и перед стройкой мы ещё раз вместе всё оценим.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="stage4 col-stage" style="display:none;">
+                <div class="richContainer rounded-all r9">
+                    <b>
+                        <p>Заказчик</p>
+                    </b>
+                    <p>Тогда всё отлично. Жду оставшуюся документацию. Уверен, парк получится просто прекрасный!</p>
+                </div>
+                <div class="archContainer rounded-all r10">
+                    <b>
+                        <p>Главный архитектор</p>
+                    </b>
+                    <p>Замечательно!</p>
+                    <div type="button" class="btn btn-outline-warning rounded-all-lightly button-final" style="margin: 0 !important; padding: 1rem 3rem;" onclick="window.location.href='./ending.html'">Закочить переговоры с заказчиком</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-3" style="right: 60px; bottom: 0; height: 100%; width: 50%;"><img src="./img/architect.png" style="display: block; margin-left: auto; margin-top: auto !important; min-width: 575px;" alt=""></div>
+    </div>
+
+    <div class="popup" style="z-index: 1000;">
+        <div class="popup__icon"><img src="./img/icons/attention.svg" alt=""></div>
+        <div class="popup__info">
+            <div class="popup__header">
+                <h3 class="popup__title">Ой, это неверный вариант!</h3>
+                <button class="popup__close-btn">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5.26541 7L0 1.73459L1.73459 0L7 5.26541L12.2654 0L14 1.73459L8.73459 7L14 12.2654L12.2654 14L7 8.73459L1.73459 14L0 12.2654L5.26541 7Z" fill="#75797B"/>
+                    </svg>                            
+                </button>
+            </div>
+            <p class="popup__paragraph">
+                Если не знаете, какой вариант выбрать, загляните в справочник.
+            </p>
+        </div>
+    </div>
+
+</body>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"
+    integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+    crossorigin="anonymous"></script>
+<script>
+    let stageNum=0;
+    let speechCounter = 0;
+
+    function correctAnswer(){
+        $('.stage'+stageNum).fadeOut(1000);
+        let endSpeech=0;
+        stageNum++;
+        let classname='.stage'+stageNum;
+        setTimeout(()=>$(classname).fadeIn(1000),1000);
+        switch (stageNum){
+            case 1:
+                endSpeech=5;
+                break;
+            case 2:
+                endSpeech=7;
+                break;
+            case 3:
+                endSpeech=9;
+                break;
+            case 4:
+                endSpeech=11;
+                break;
+        }
+        showSpeech(speechCounter,endSpeech);
+    }
+
+    function wrongAnswer() {
+        let popup = $('.popup');
+        popup.addClass('_opened');
+        window.setTimeout(function () {
+            popup.addClass('clickable');
+        }, 5);
+    }
+
+    $(".popup__close-btn").on("click", function () {
+        let popup = $('.popup');
+        popup.removeClass('_opened');
+        window.setTimeout(function () {
+            popup.removeClass('clickable');
+        }, 5);
+    });
+
+    $(document).on('click', function (e) {
+        let popup = $('.popup');
+        if (!$(e.target).closest('.popup').length && popup.hasClass('_opened') && popup.hasClass('clickable')) {
+            popup.removeClass('_opened');
+            window.setTimeout(function () {
+                popup.removeClass('clickable');
+            }, 5);
+        }
+    });
+
+    $(document).on('keydown', function (event) {
+        let popup = $('.popup');
+        let popupFinished = $('.popupFinished');
+
+        if (popup.hasClass('_opened') || popupFinished.hasClass('_opened')) {
+            if (event.key == 'Escape') {
+                popup.removeClass('_opened');
+                window.setTimeout(function () {
+                    popup.removeClass('clickable');
+                }, 5);
+            }
+        }
+    });
+
+    function showOneSpeech(classname){
+        $(classname).fadeIn(1000);
+    }
+
+    function showSpeech(startNum,n){
+        let counter = startNum;
+        let secondCounter = 0;
+        while (startNum<n){
+            let classname='.r'+startNum;
+            setTimeout(()=>showOneSpeech(classname),secondCounter*1000);
+            secondCounter++;
+            speechCounter++;
+            startNum++;
+            counter++;
+        }
+    }
+
+    showSpeech(speechCounter,3);
+</script>
+
+</html>

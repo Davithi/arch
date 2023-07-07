@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/editing.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/modals.css">
+    <script src="https://kit.fontawesome.com/dc4f8560f3.js" crossorigin="anonymous"></script>
+</head>
+<style>
+    .zone:hover {
+        cursor: pointer;
+    }
+
+    .zoneFree:hover {
+        cursor: pointer;
+    }
+
+    .btn-outline-secondary:hover {
+        color:white;
+        background-color: #a9812A;
+        border: 2px solid #a9812A;
+    }
+
+    .rounded-all-lightly {
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+    }
+
+    .zoneSelected {
+        pointer-events: none;
+    }
+</style>
+
+<body>
+    <div class="wrapper">
+        <main class="main">
+            <div class="main__container" style="display: flex; align-items: flex-start; width: 100%; gap: 16px;">
+                <div class="workflow__part" style="overflow: hidden;" data-aos="fade-up" data-aos-duration="800">
+                    <div style="position:relative;">
+                        <img src="./img/parkMap.png" alt="" style="width: auto; height:auto;">
+                        <div class="writingAd" style="position:absolute; top:3%; left:70%; display:none;">
+                            <img src="./img/avatars/writing1.png" alt="" id="zapiska">
+                            <img src="./img/avatars/avatar1.png" alt="" id="avik" style="position:absolute; top:25%; left:75%;">
+                        </div>
+                        <div style="position:absolute; top:31%; left:25%; width: 55.54%; clip-path: path('M2 195L20.5 175C36.5 180.5 70.5 179.5 91 171C143.003 143.416 172.5 90.5 147.5 27L168.5 1.5L448 205L415 328.5L2 195Z');">
+                            <img src="./img/Zonirovanie/zZone0.png" alt="" class="zone zone0 a0" style="transform: translate(8px, 5.2px) scale(.98);">
+                        </div>
+                        <div style="position:absolute; top:27.6%; left:20%; width: 23.16%;">
+                            <img src="./img/Zonirovanie/zZone1.png" alt="" class="zone zone1 a1" style="border-radius: 50%;">
+                        </div>
+
+                        <img src="./img/Zonirovanie/roads.png" alt="" class="roads"
+                            style="position:absolute; top:22.3%; left:8.1%; display:none; width: 76.21%;">
+
+                        <div style="position:absolute; top:67%; left:81%; width: 9.4%; clip-path: path('M0 119L28 0.500488L75.5 29.0005L16 125L0 119Z');">
+                            <img src="./img/Zonirovanie/dog.png" alt="" class="zoneFree" style="display:none; transform: translate(1px, 0);">
+                        </div>
+                        <div style="position:absolute; top:9%; left:21%; width: 18.31%; clip-path: path('M90 100C72.5 98.4649 62.1667 100.833 60 102.5L0 49L50 0L147 82.5L127.5 111.5C127.5 111.5 109 101.667 90 100Z');">
+                            <img src="./img/Zonirovanie/Girya.png" alt="" class="zoneFree"  style="display:none;  transform: translate(-1px, -1px);">
+                        </div>
+                        <div style="position:absolute; top:18%; left:15.5%; width: 9.28%; clip-path: path('M38 0.000488281L0.5 34.5005L38 67.0005L75 34.5005L38 0.000488281Z');">
+                            <img src="./img/Zonirovanie/Cafe.png" alt="" class="zoneFree" style="display: none;">
+                        </div>
+                        <div style="position:absolute; top:27.3%; left:5.6%; width: 13.76%; clip-path: path('M0 56.0005L58 0.000488281L110.5 47.5005C109 48.5005 106 59.5005 104 69.5005C102.004 79.481 101.17 93.944 101.995 94.0003L28.5 91.5005L0 56.0005Z');">
+                            <img src="./img/Zonirovanie/Baby.png" alt="" class="zoneFree" style="display: none; transform: translate(1px, 1px);">
+                        </div>
+                        <div style="position:absolute; top:47%; left:12%; width: 10.96%; clip-path: path('M54.5 2.00049L0 0.000488281L66.5 83.0005L88 54.5005C85 52.0005 74.9785 43.8922 66.5 31.5005C58.0215 19.1088 55.5 8.50049 54.5 2.00049Z');">
+                            <img src="./img/Zonirovanie/Samokat.png" alt="" class="zoneFree" style="display: none;">
+                        </div>
+                    </div>
+                </div>
+                <div class="workflow__part" style="display: flex; flex: 0 0 415px;" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+                    <div class="container rounded-all py-4" style="background:white; display: flex; flex-direction: column; padding: 16px 24px 20px 24px !important;">
+                        <p class="part-name">Часть 3</p>
+                        <h3 class="title" style="margin: 0 !important;">Зонирование</h3>
+                        <p style="display: block; margin: 16px 0 !important;">На предыдущем этапе мы узнали, чего хотят жители. Теперь вам надо сделать эскиз проекта — выберите на
+                            карте будущего парка подходящие участки.</p>
+                        <div class="container rounded-all-lightly neccPart pt-2" style="display: block; background-color:#FAE4A5; margin-top: 8px !important;">
+                            <div class="d-flex">
+                                <em class="mr-auto">
+                                    <p>ОБЯЗАТЕЛЬНЫЕ ЗОНЫ</p>
+                                </em>
+                                <b class="ml-auto">
+                                    <p class="necessCount">0/2</p>
+                                </b>
+                            </div>
+                            <div class="firstStage" style="display:none;">
+                                <div class="py-2" style="padding-top: 0 !important;">
+                                    <h3 class="neccZoneHeader" style="font-size: 20px; font-weight: 600 !important;">Рекреационная зона</h3>
+                                    <p class="neccZoneDescr">Самая обширная область парка для отдыха и прогулок</p>
+                                    <button class="firstStageButton stage-btn" onclick="firstStagePass()" disabled>Подтвердить</button>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <div class="container rounded-all-lightly addPart mt-2 pt-2" style="background-color:#E1E7EB">
+                            <div class="d-flex">
+                                <em class="mr-auto">
+                                    <p>ПОЖЕЛАНИЯ ЖИТЕЛЕЙ</p>
+                                </em>
+                                <b class="ml-auto">
+                                    <p class="addCount">0/5</p>
+                                </b>
+                            </div>
+                            <div class="secondStage" style="display:none;">
+                                <div class="py-2">
+                                    <h3 class="addZoneHeader"></h3>
+                                    <p class="addZoneDescr"></p>
+                                    <button class="secondStageButton stage-btn" onclick="secondStagePass()" disabled>Подтвердить</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <div class="popup">
+            <div class="popup__icon"><img src="./img/icons/attention.svg" alt=""></div>
+            <div class="popup__info">
+                <div class="popup__header">
+                    <h3 class="popup__title">Ой, это неверный вариант!</h3>
+                    <button class="popup__close-btn">
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M5.26541 7L0 1.73459L1.73459 0L7 5.26541L12.2654 0L14 1.73459L8.73459 7L14 12.2654L12.2654 14L7 8.73459L1.73459 14L0 12.2654L5.26541 7Z" fill="#75797B"/>
+                        </svg>                            
+                    </button>
+                </div>
+                <p class="popup__paragraph">
+                    Если не знаете, какой вариант выбрать, загляните в справочник.
+                </p>
+            </div>
+        </div>
+
+        <div class="popup-finished">
+            <div class="popup-finished__info">
+                <div class="popup-finished__header">
+                    <h3 class="popup-finished__title">Прекрасно!</h3>
+                </div>
+                <p class="popup-finished__paragraph">
+                    У вас получился эскизный проект — его уже можно <br> презентовать заказчику.
+                </p>
+            </div>
+            <a href="dialog.html" class="popup-finished__button">Далее</a>
+        </div>
+    </div>
+
+</body>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"
+    integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+    crossorigin="anonymous"></script>
+<script>
+    let counter = 0;
+    let firstStage = true;
+    let neccHeaders = ['Пункт проката', 'Площадка для собак', 'Детская площадка', 'Кафе', 'Спортивная площадка'];
+    let neccDescrs = [
+        'Касса, раздевалка с камерами хранения, стоянка для велосипедов под навесом', 
+        'Газон, барьеры и тоннели, информационный стенд, урна и ограждение',
+        'Качели и горки, детский городок, верёвочные подвесные сооружения',
+        'Помещение с кухней, водопроводом и газопроводом, летняя веранда с клумбами',
+        'Турники, брусья, тренажёры, наклонные скамьи и скалодром'
+    ];
+
+    $(".firstStage").fadeIn(500);
+    updateHeader(counter);
+    updateDescr(counter);
+
+    function updateWriting(n) {
+        if (n - 1 != 5) {
+            let avatarPos = ['30px', '30px', '70px', '-30px', '59px', '40px'];
+            $('#avik').attr('src', './img/avatars/avatar' + n + '.png');
+            $('#avik').css('top', avatarPos[n]);
+            $('#zapiska').attr('src', './img/avatars/writing' + n + '.png');
+        } else {
+            let avatarPos = ['30px', '30px', '70px', '-30px', '59px', '40px'];
+            $('#avik').css('display', 'none');
+            $('#zapiska').css('display', 'none');
+        }
+    }
+
+    function wrongAnswer() {
+        let popup = $('.popup');
+        popup.addClass('_opened');
+        window.setTimeout(function () {
+            popup.addClass('clickable');
+        }, 5);
+    }
+
+    $(".popup__close-btn").on("click", function () {
+        let popup = $('.popup');
+        popup.removeClass('_opened');
+        window.setTimeout(function () {
+            popup.removeClass('clickable');
+        }, 5);
+    });
+
+    $(document).on('click', function (e) {
+        let popup = $('.popup');
+        if (!$(e.target).closest('.popup').length && popup.hasClass('_opened') && popup.hasClass('clickable')) {
+            popup.removeClass('_opened');
+            window.setTimeout(function () {
+                popup.removeClass('clickable');
+            }, 5);
+        }
+    });
+
+    $(document).on('keydown', function (event) {
+        let popup = $('.popup');
+        let popupFinished = $('.popupFinished');
+
+        if (popup.hasClass('_opened') || popupFinished.hasClass('_opened')) {
+            if (event.key == 'Escape') {
+                popup.removeClass('_opened');
+                window.setTimeout(function () {
+                    popup.removeClass('clickable');
+                }, 5);
+            }
+        }
+    });
+
+    function selectNeccZone(n) {
+        let classname = '.a' + n;
+        $(classname).attr('src', './img/Zonirovanie/zZone' + n + 'Select.png');
+    }
+
+    function updateCounter(n) {
+        let classname = firstStage ? '.necessCount' : '.addCount';
+        let totalCount = firstStage ? '2' : '5';
+        $(classname).text(n + '/' + totalCount);
+    }
+
+    function updateHeader(n) {
+        if (n != 5) {
+            $('.addZoneHeader').text(neccHeaders[n]);
+        } else {
+            $('.addZoneHeader').text('');
+        }
+    }
+
+    function updateDescr(n) {
+        if (n != 5) {
+            $('.addZoneDescr').text(neccDescrs[n]);
+        } else {
+            $('.addZoneDescr').text('');
+        }
+    }
+
+    function firstStagePass() {
+        firstStage = false;
+        $(".zone0").attr('src', './img/Zonirovanie/zZone0Done.png');
+        $(".zone1").attr('src', './img/Zonirovanie/zZone1Done.png');
+        $(".neccPart").css('background-color', 'lightgreen');
+        $(".roads").css('display', 'block');
+        $(".firstStage").css('display', 'none');
+        $(".secondStage").fadeIn(500);
+        $(".addPart").css('background-color', '#FAE4A5');
+        $(".writingAd").fadeIn(500);
+        $(".zoneFree").css('display', 'block');
+        $(".necessCount").text('');
+        $(".necessCount").append('<i class="fa-solid fa-check fa-xl"></i>');
+        counter = 0;
+    }
+
+    function secondStagePass() {
+        $(".addPart").css('background-color', 'lightgreen');
+        $(".secondStage").fadeOut(500);
+        $(".popup-finished").addClass('_opened');
+        $(".addCount").text('');
+        $(".addCount").append('<i class="fa-solid fa-check fa-xl"></i>');
+        counter = 0;
+    }
+
+    $(".zone").on("click", function () {
+        if (!$(this).hasClass("zoneSelected")) {
+            let classname = 'a' + counter;
+            if ($(this).hasClass(classname)) {
+                selectNeccZone(counter);
+                $(this).addClass("zoneSelected");
+                counter++;
+                updateHeader(counter);
+                updateDescr(counter);
+                updateCounter(counter);
+                if (counter == 2) {
+                    $(".firstStageButton").attr("disabled", false);
+                }
+            } else {
+                wrongAnswer();
+            }
+        }
+    });
+
+    $(".zoneFree").on("click", function () {
+        if (!$(this).hasClass("zoneSelected")) {
+            if (counter == 5) {
+            }
+            $(this).addClass("zoneSelected");
+            let src = $(this).attr('src');
+            let newSrc = src.substring(0, src.length - 4);
+            newSrc = newSrc + 'Select.png';
+            $(this).attr('src', newSrc);
+            counter++;
+            updateWriting(counter + 1);
+            updateHeader(counter);
+            updateDescr(counter);
+            updateCounter(counter);
+            if (counter == 5) {
+                $(".secondStageButton").attr("disabled", false);
+            }
+        }
+    });
+</script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init();
+</script>
+</html>

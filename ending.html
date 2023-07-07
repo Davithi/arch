@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/editing.css">
+</head>
+<style>
+    .speech-bubble {
+        position: absolute;
+        padding: 0.5rem 0.5rem;
+        border-radius: .4em;
+    }
+
+</style>
+
+<body>
+    <div class="wrapper">
+        <main class="main">
+            <section class="main__welcome welcome" style="height: 600px;">
+                <div class="welcome__container">
+                    <div class="welcome__wrapper" style="padding-top: 30px;">
+                        <div class="welcome__image" data-aos="rm-opacity" data-aos-offset="20" data-aos-duration="800">
+                            <img src="./img/End Pic.png" alt="">
+                        </div>
+
+                        <div class="welcome-message" data-aos="fade-right" data-aos-offset="20" data-aos-duration="800" data-aos-delay="400">
+                            <h1>Заказчик согласовал проект!</h1>
+                            <p>Вскоре вы передали генеральный план строителям, а уже через несколько месяцев на заброшенном пустыре появился прекрасный парк, который по достоинству оценили все жители города.</p>
+                        </div>
+
+                        <div class="button-box" data-aos="fade-down" data-aos-offset="20" data-aos-duration="800" data-aos-delay="800">
+                            <button class="welcome-button button" onclick="endModal()">Завершить работу</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <div class="container py-4">
+                <div class="d-flex justify-content-center">
+                    <div class="speech-bubble speech-right s0" style="top:28%; left:12%; display:none;">
+                        <img src="./img/quotes/img1.svg" alt="">
+                    </div>
+                    <div class="speech-bubble speech-right s1" style="top:36%; left:3.7%; display:none;">
+                        <img src="./img/quotes/img2.svg" alt="">
+                    </div>
+                    <div class="speech-bubble speech-left s2" style="top:23%; left:6%; display:none;">
+                        <img src="./img/quotes/img3.svg" alt="">
+                    </div>
+                    <div class="speech-bubble speech-right s3" style="top:7.4%; left:9.4%; display:none;">
+                        <img src="./img/quotes/img4.svg" alt="">
+                    </div>
+                    <div class="speech-bubble speech-right s4" style="top:28%; left:-2%; display:none;">
+                        <img src="./img/quotes/img5.svg" alt="">
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="container rounded-all modalWindow modalFinal" style="max-width: 880px; padding: 0 !important; display: none;">
+        <div class="mx-4 row" style="padding: 0 !important; margin: 0 !important; overflow: hidden;">
+            <div class="col-8" style="display: flex; flex-direction: column; align-items: flex-start; padding: 32px 40px; z-index: 10;">
+                <h1 class="finish-title" style="margin-bottom: 20px !important;">Поздравляем! </h1>
+                <p>Ваше архитектурное бюро выполнило весьма сложный заказ.</p>
+                <p style="margin-bottom: 42px;">Вы определили, в какой точке города должно появиться новое общественное пространство, провели
+                    исследования с местными жителями, зонировали территорию, а затем по вашему проекту построили
+                    настоящий парк.
+                </p>
+
+                <button class="button" style="margin-top: auto;">Перейти к финалу</button>
+            </div>
+            <div class="col-4" style="padding: 0; position: absolute; height: 100%; right: 0; top: 0;">
+                <img src="./img/finalModal.png" alt="" class="mr-auto img-fluid" style="width: 100%; height: 100%; object-fit: cover; object-position: center top;">
+            </div>
+        </div>
+    </div>
+
+    <div class="overlay" style="display: none;"></div>
+</body>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"
+    integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+    crossorigin="anonymous"></script>
+<script>
+    let counter = 0;
+
+    function endModal() {
+        $(".overlay").fadeIn(500);
+        $(".modalFinal").fadeIn(500);
+    }
+
+    function moveBubble(classname){
+        switch (classname){
+            case ".s0":
+            $(classname).animate({marginLeft: '15%'}, 1000);
+            break;
+            case ".s1":
+            $(classname).animate({marginLeft: '30%'}, 1000);
+            break;
+            case ".s2":
+            $(classname).animate({marginLeft: '43%'}, 1000);
+            break;
+            case ".s3":
+            $(classname).animate({marginLeft: '50%'}, 1000);
+            break;
+            case ".s4":
+            $(classname).animate({marginLeft: '65%'}, 1000);
+            break;
+        }
+    }
+
+    function appearBubble(classname) {
+        $(classname).fadeIn(500);
+    };
+
+    while (counter < 5) {
+        let classname = ".s" + counter;
+        setTimeout(() => appearBubble(classname), counter * 1000);
+        setTimeout(() => moveBubble(classname), counter * 1200);
+        counter++;
+    }
+</script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init();
+</script>
+
+</html>

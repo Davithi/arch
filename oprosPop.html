@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/editing.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/modals.css">
+    <script src="https://kit.fontawesome.com/dc4f8560f3.js" crossorigin="anonymous"></script>
+</head>
+<style>
+    .btn-warning {
+        margin: 0.5rem 0.5rem;
+        background-color: rgb(250, 218, 159);
+        color: black;
+        border: rgb(250, 218, 159);
+    }
+
+    .btn-warning:disabled{
+        background-color: rgb(179, 177, 177);
+        color: rgb(82, 81, 81);
+        border: rgb(179, 177, 177);
+        pointer-events: none;
+    }
+
+    .speech-bubble {
+        position: absolute;
+        padding: 0.5rem 0.5rem;
+        background: white;
+        border-radius: .4em;
+    }
+
+    .speech-bubble.speech-right:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border: 18px solid transparent;
+        border-top-color: white;
+        border-bottom: 0;
+        border-right: 0;
+        margin-left: -9px;
+        margin-bottom: -18px;
+    }
+
+    .speech-bubble.speech-left:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border: 18px solid transparent;
+        border-top-color: white;
+        border-bottom: 0;
+        border-left: 0;
+        margin-left: -9px;
+        margin-bottom: -18px;
+    }
+
+    .aside-title {
+        font-size: 16px;
+        font-family: Inter;
+        font-weight: 600;
+        line-height: 19px;
+        color: #080809;
+    }
+    .progCount {
+        font-size: 16px;
+        font-family: Inter;
+        font-weight: 600;
+        line-height: 19px;
+        color: #080809;
+    }
+    .workflow__part {
+        padding: 20px 24px !important;
+    }
+    .answear-for-q button {
+        margin: 0 !important;
+    }
+    .answear-for-q button:hover {
+        background-color: #FAE4A5;
+    }
+    .answear-for-q button:active {
+        background-color: #FAE4A5 !important;
+    }
+    .answear-for-q button:focus {
+        background-color: #FAE4A5 !important;
+    }
+    .label-total-stat {
+        font-size: 20px;
+        font-family: Inter;
+        font-weight: 600;
+        line-height: 24px;
+        color: #1D1F20;
+    }
+    .aud-part {
+        width: 100px !important;
+        max-width: 100px !important;
+        flex: 0 0 100px !important;
+        padding: 0 !important;
+
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+    .aud-part p {
+        margin: 0 !important;
+        font-size: 16px;
+        font-family: Inter;
+        line-height: 19px;
+        color: #080809;
+    }
+</style>
+
+<body>
+    <div class="wrapper">
+        <main class="main">
+            <div class="main__container">
+                <div class="d-flex justify-content-center" style="display: flex; align-items: flex-start;">
+                    <div>
+                        <div class="container rounded-all my-4 py-4 workflow__part" style="background:white; padding: 16px 24px !important; margin-top: 0 !important;" data-aos="fade-up" data-aos-duration="800">
+                            <p class="part-name">Часть 2</p>
+                            <h4 class="title">Семинар с жителями</h4>
+                        </div>
+                        <div style="position:relative; overflow: hidden;  padding: 0 !important;" class="workflow__part" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+                            <img src="./img/population.png" alt="" class="img-fluid" style="width: 100%; height:auto;">
+                            <div class="speech-bubble speech-right s0" style="top:52%; left:35%; display:none;">
+                                <h6>Мне не хватает воркаут-площадки</h6>
+                                <h6>Тренировки на свежем воздухе - самые полезные!</h6>
+                            </div>
+                            <div class="speech-bubble speech-right s1" style="top:17%; left:70%; display:none;">
+                                <h6>Хочу, чтобы можно было везде</h6>
+                                <h6>без проблем пройти и проехать</h6>
+                            </div>
+                            <div class="speech-bubble speech-left s2" style="top:5%; left:20%; display:none;">
+                                <h6>Хотим площадку с веревочным парком!</h6>
+                            </div>
+                            <div class="speech-bubble speech-left s3" style="top:32%; display:none;">
+                                <h6>Да, детская площадка нужна. Но не хватает ещё</h6>
+                                <h6>какого-нибудь кафе, чтобы перекусить</h6>
+                            </div>
+                            <div class="speech-bubble speech-right s4" style="top:1px; left:32%; display:none;">
+                                <h6>Неплохо бы арендовать ролики и</h6>
+                                <h6>велосипеды прямо в парке</h6>
+                            </div>
+                            <div class="speech-bubble speech-left s5" style="top:1px; left:58%; display:none;">
+                                <h6>Я хотел бы дрессировать собаку в парке</h6>
+                                <h6>и знакомиться с другими владельцами</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-left: 16px; flex: 0 0 360px; display: flex; flex-direction: column; gap: 16px;">
+                        <div class="container rounded-all my-4 py-4 workflow__part" style="background:white; margin: 0 !important;" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+                            <div class="row justify-content-between" style="display: flex; align-items: flex-start;">
+                                <div class="col-8"><h4 class="aside-title">Что нужно учесть при проектировании парка?</h4></div>
+                                <div class="col-2" style=" padding: 0 !important; flex: 1 1 auto !important; max-width: auto !important;"><h4 class="progCount" style="margin: 0 !important;">0/6</h4></div>
+                            </div>
+                            <p>Сопоставьте реплики с вариантами:</p>
+                            <div class="answear-for-q">
+                                <button type="button" class="btn btn-warning a3">Кафе</button>
+                                <button type="button" class="btn btn-warning a5">Площадка для собак</button>
+                                <button type="button" class="btn btn-warning">Пруд с уточками</button>
+                                <button type="button" class="btn btn-warning">Скейтпарк</button>
+                                <button type="button" class="btn btn-warning a2">Детская площадка</button>
+                                <button type="button" class="btn btn-warning a0">Спортивная площадка</button>
+                                <button type="button" class="btn btn-warning a4">Пункт проката</button>
+                                <button type="button" class="btn btn-warning">Колесо обозрения</button>
+                                <button type="button" class="btn btn-warning">Фонтан</button>
+                                <button type="button" class="btn btn-warning a1">Доступная среда</button>
+                            </div>
+                        </div>
+            
+                        <div class="container rounded-all my-4 py-4 workflow__part" style="background:white;" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
+                            <h4 class="ml-auto" style="font-size: 16px;">Индекс счастья жителей</h4>
+                            <img class="happyIndex" src="./img/happy1.png" alt="" style="width:356px; height:auto;">
+                            <p class="happyState" style="color: red;">Низкий</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <div class="popup">
+            <div class="popup__icon"><img src="./img/icons/attention.svg" alt=""></div>
+            <div class="popup__info">
+                <div class="popup__header">
+                    <h3 class="popup__title">Ой, это неверный вариант!</h3>
+                    <button class="popup__close-btn">
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M5.26541 7L0 1.73459L1.73459 0L7 5.26541L12.2654 0L14 1.73459L8.73459 7L14 12.2654L12.2654 14L7 8.73459L1.73459 14L0 12.2654L5.26541 7Z" fill="#75797B"/>
+                        </svg>                            
+                    </button>
+                </div>
+                <p class="popup__paragraph">
+                    Если не знаете, какой вариант выбрать, загляните в справочник.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="overlay" style="display:none;"></div>
+
+    <div class="container rounded-all modalWindow totalWindow px-4" style="display:none; padding: 32px 40px !important; max-width: 845px;">
+        <h4 style="font-size: 32px; font-weight: 600; font-family: Inter; line-height: 39px; color: #080809;">Вместе с аналитиками вы завершили <br> полевые исследования. Отличная работа!</h4>
+        <h6 style="font-size: 20px; font-weight: 600; font-family: Inter; line-height: 39px; color: #080809; margin-top: 16px;">Портрет аудитории</h6>
+        <div class="row justify-content-around" style="margin-bottom: 40px;">
+            <div class="col-2 text-center aud-part">
+                <img src="./img/avatars/avatar4.png" alt="" class="img-fluid">
+                <p>Семьи с детьми</p>
+            </div>
+            <div class="col-2 text-center aud-part">
+                <img src="./img/avatars/avatar3.png" alt="" class="img-fluid">
+                <p>Дети</p>
+            </div>
+            <div class="col-2 text-center aud-part">
+                <img src="./img/avatars/avatar5.png" alt="" class="img-fluid">
+                <p>Спортсмены</p>
+            </div>
+            <div class="col-2 text-center aud-part">
+                <img src="./img/avatars/avatar1.png" alt="" class="img-fluid">
+                <p>Взрослые</p>
+            </div>
+            <div class="col-2 text-center aud-part">
+                <img src="./img/avatars/avatar6.png" alt="" class="img-fluid">
+                <p>Пенсионеры</p>
+            </div>
+            <div class="col-2 text-center aud-part">
+                <img src="./img/avatars/avatar2.png" alt="" class="img-fluid">
+                <p>Владельцы собак</p>
+            </div>
+        </div>
+        <div class="row justify-content-between" style="margin: 0 !important;">
+            <div style="padding: 0 !important; max-width: none !important; width: auto !important;">
+                <h6 class="label-total-stat">Пожелания местных жителей</h6>
+                <img src="./img/graph1.svg" alt="" class="img-fluid" style="width: 352px;">
+            </div>
+            <div style="padding: 0 !important; max-width: none !important; width: auto !important;">
+                <h6 class="label-total-stat">Прогноз роста населения</h6>
+                <img src="./img/graph2.svg" alt="" class="img-fluid" style="width: 345px;">
+            </div>
+        </div>
+        <a href="zonirovanie.html" class="button" style="display: inline-flex; margin-left:auto; margin-top: 24px !important; color: #000;">
+            <span>Следующий этап</span><img src="./img/icons/arrow-right.svg" alt="">
+        </a>
+    </div>
+    
+</body>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"
+    integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+    crossorigin="anonymous"></script>
+<script>
+    let counter = 0;
+    let popup = $('.popup');
+    
+    fadeInSpeech(0);
+
+    function wrongAnswer() {
+        $(".popup").addClass('_opened');
+        window.setTimeout(function() {
+            popup.addClass('clickable');
+        }, 5);
+    };
+
+    $(".popup__close-btn").on("click", function () {
+        var popup = $('.popup');
+        $(".popup").removeClass('_opened');
+        window.setTimeout(function() {
+            popup.removeClass('clickable');
+        }, 5);
+    });
+    $(document).on('click', function(e) {
+        var popup = $('.popup');
+        if (!$(e.target).closest('.popup').length && popup.hasClass('_opened') && popup.hasClass('clickable')) {
+            popup.removeClass('_opened');
+            window.setTimeout(function() {
+                popup.removeClass('clickable');
+            }, 5);
+        }
+    });
+    $(document).on('keydown', function(event) {
+        var popup = $('.popup');
+        var popupFinished = $('.popupFinished');
+        
+        if (popup.hasClass('_opened') || popupFinished.hasClass('_opened')) {
+            if (event.key == 'Escape') {
+                popup.removeClass('_opened');
+                window.setTimeout(function() {
+                    popup.removeClass('clickable');
+                }, 5);
+            }
+        }
+    });
+
+    function fadeInSpeech(n) {
+        let classname = ".s" + n;
+        $(classname).fadeIn(500);
+    }
+
+    function fadeOutSpeech(n) {
+        let classname = ".s" + n;
+        $(classname).fadeOut(500);
+    }
+
+    function totalWindow() {
+        $(".overlay").fadeIn(500);
+        $(".totalWindow").fadeIn(500);
+    };
+
+    function changeProgCount(n){
+        $(".progCount").text(n+"/6");
+    }
+
+    function updateHappy(n){
+        $(".happyIndex").attr('src','./img/happy'+(n+1)+'.png');
+        if ((n+1)==3){
+            $(".happyState").text("Уже лучше...");
+            $(".happyState").css('color','orange');
+        }
+        if ((n+1)==5){
+            $(".happyState").text("Все довольны!");
+            $(".happyState").css('color','green');
+        }
+    }
+
+    $(".btn-warning").on("click", function () {
+        let classname="a"+counter;
+        if ($(this).hasClass(classname)){
+            fadeOutSpeech(counter);
+            updateHappy(counter);
+            counter++;
+            changeProgCount(counter);
+            fadeInSpeech(counter);
+            $(this).prop('disabled',true);
+            if (counter==6){
+                setTimeout(()=>totalWindow(),2000);
+            }
+        } else {
+            wrongAnswer();
+        }
+    });
+
+</script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init();
+</script>
+
+</html>
